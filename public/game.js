@@ -20,7 +20,7 @@ $('.tweet').click(function () {
 function moveTo(pos) {
 
     // faster movement
-    diff = ismobile ? 25 : 35;
+    diff = ismobile ? 50 : 90;
 
     if (pos == 'left') {
 
