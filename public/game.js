@@ -7,7 +7,6 @@ var music_play = false;
 var interval_left = false;
 var interval_right = false;
 
-
 if (ismobile) scroll_x -= 170;
 else scroll_x -= 240;
 
@@ -20,7 +19,8 @@ $('.tweet').click(function () {
 
 function moveTo(pos) {
 
-    diff = ismobile ? 50 : 90;
+    // faster movement
+    diff = ismobile ? 25 : 35;
 
     if (pos == 'left') {
 
@@ -48,11 +48,9 @@ function moveTo(pos) {
         direction = false;
     }
 
-
     // reach end
     if (scroll_x < (parseInt($('#scroll').css('width')) * -1)) {
         scroll_x = $(window).width();
-
 
         // reach start
     } else if (scroll_x > $(window).width()) {
@@ -64,12 +62,13 @@ function moveTo(pos) {
     $('#mario').css('background-position-x', mario_x + 'px');
 }
 
-
 function playMusic() {
     if (!music_play) {
         var bg = document.getElementById("bg_music");
-        bg.volume = 0.30;   // 30% volume (70% reduced)
-        bg.play();
+        if (bg) {
+            bg.volume = 0.30;   // 30% volume = 70% reduction
+            bg.play();
+        }
         music_play = true;
     }
 }
@@ -81,7 +80,7 @@ function moveLeft() {
     if (!interval_left) {
         interval_left = setInterval(function () {
             moveTo('left');
-        }, 100);
+        }, 80);
     }
 }
 
@@ -92,7 +91,7 @@ function moveRight() {
     if (!interval_right) {
         interval_right = setInterval(function () {
             moveTo('right');
-        }, 100);
+        }, 80);
     }
 }
 
@@ -103,10 +102,13 @@ function stopMove() {
     interval_right = false;
 }
 
-
-
-
 $(function () {
+
+    // force volume to 30% as soon as page loads
+    var bg = document.getElementById("bg_music");
+    if (bg) {
+        bg.volume = 0.30;
+    }
 
     $("body, #scroll").click(function () {
         playMusic();
