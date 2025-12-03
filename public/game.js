@@ -67,7 +67,9 @@ function moveTo(pos) {
 
 function playMusic() {
     if (!music_play) {
-        document.getElementById("bg_music").play();
+        var bg = document.getElementById("bg_music");
+        bg.volume = 0.30;   // 30% volume (70% reduced)
+        bg.play();
         music_play = true;
     }
 }
